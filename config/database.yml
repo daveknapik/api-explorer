@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  username: apiexplorer
+  password: apiexplorer
+
+development:
+  <<: *default
+  database: apiexplorer_development
+
+test:
+  <<: *default
+  database: apiexplorer_test
+
+production:
+  <<: *default
+  database: apiexplorer_production

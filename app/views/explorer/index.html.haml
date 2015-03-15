@@ -1,0 +1,46 @@
+:javascript
+  window.api_calls = #{@api_calls.to_json(include: {resources: {include: [:parameters, :examples]}})};
+
+- @api_calls.each do |api_call|
+  %ul
+    %li= api_call.name
+    %ul
+      - api_call.resources.each do |resource|
+        %li= resource.path
+        %div 
+          Required Parameters
+          %ul
+            - resource.parameters.select {|p| p.required == true}.each do |parameter|
+              %li= parameter.name
+          Optional Parameters
+          %ul
+            - resource.parameters.select {|p| p.required == false}.each do |parameter|
+              %li= parameter.name
+
+= form_tag(explorer_results_path) do
+  = select_tag "api_call_id", options_from_collection_for_select(@api_calls, :id, :name)
+
+  = select_tag "resource_id", options_from_collection_for_select(@api_calls.first.resources, :id, :path_with_http_method)
+
+  %div Required Parameters
+  %div.parameters.required
+    - @api_calls.first.resources.first.parameters.select {|p| p.required }.each do | parameter |
+      = label_tag "parameters_#{parameter.name}", parameter.name
+      = text_field_tag "parameters[#{parameter.name}]"
+    
+
+  %div Optional Parameters
+  %div.parameters.optional
+    - @api_calls.first.resources.first.parameters.select {|p| !p.required }.each do | parameter |
+      = label_tag "parameters_#{parameter.name}", parameter.name
+      = text_field_tag "parameters[#{parameter.name}]"
+
+  %div.authentication
+    %div
+      = label_tag :username
+      = text_field_tag :username
+    %div
+      = label_tag :password
+      = text_field_tag :password
+
+  = submit_tag
