@@ -11,13 +11,16 @@ class ExplorerController < ApplicationController
 
     resource.parameters.select {|p| p.url_parameter}.each do |parameter|
       path.gsub!(":#{parameter.name}", params[:parameters][parameter.name])
+      params[:parameters].delete parameter.name
     end
 
     api_response = HTTParty.send(
                     resource.http_method.downcase,
                     "http://api.testing.iknow.jp" + path, 
-                    basic_auth: {username: params[:username], password: params[:password]})
-    parse_api_response_body = JSON.parse(api_response.body)
-    render json: api_response
+                    query: params[:parameters],
+                    basic_auth: {username: params[:username], password: params[:password]},
+                    debug_output: $stdout)
+    parsed_api_response_body = JSON.parse(api_response.body)
+    render json: parsed_api_response_body
   end
 end
