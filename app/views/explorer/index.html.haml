@@ -17,7 +17,7 @@
             - resource.parameters.select {|p| p.required == false}.each do |parameter|
               %li= parameter.name
 
-= form_tag(explorer_results_path) do
+= form_tag do
   = select_tag "api_call_id", options_from_collection_for_select(@api_calls, :id, :name)
 
   = select_tag "resource_id", options_from_collection_for_select(@api_calls.first.resources, :id, :path_with_http_method)
@@ -44,3 +44,6 @@
       = text_field_tag :password
 
   = submit_tag
+
+%div.response-container
+  %pre.response

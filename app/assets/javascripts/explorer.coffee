@@ -38,3 +38,17 @@ $ ->
       parameter_input = $("<input>").attr("type", "text").attr("name", "parameters[" + element.name + "]").attr("id", "parameters_" + element.name)
       $(".parameters.optional").append(parameter_label)
       $(".parameters.optional").append(parameter_input)
+
+  $("form").submit (event) ->
+    event.preventDefault()
+    $.ajax "/explorer/results",
+      type: "GET"
+      data: $(this).serialize()
+      dataType: "json"
+      success: (data, status, jqXHR) ->
+        pretty_data = JSON.stringify(data, null, '\t');
+        $(".response").html(pretty_data)
+      error: (jqXHR, status, errorThrown) ->
+        console.log "error"
+        console.log status
+        console.log errorThrown
