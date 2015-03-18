@@ -7,9 +7,7 @@ class Resource < ActiveRecord::Base
   has_many :parameters
   has_many :examples
 
-  def url_parameters
-    parameters.where(url_parameter: true)
-  end
+  delegate :url_parameters, to: :parameters
 
   def path_with_http_method
     "#{http_method} #{path}"
