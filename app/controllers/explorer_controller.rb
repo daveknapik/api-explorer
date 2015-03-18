@@ -6,6 +6,10 @@ class ExplorerController < ApplicationController
 
   def get_api_response
     resource = Resource.find params[:resource_id]
-    render json: resource.get_api_response(params)
+
+    render json: resource.get_api_response_body(
+      params[:parameters],
+      {username: params[:username], password: params[:password]}
+    )
   end
 end

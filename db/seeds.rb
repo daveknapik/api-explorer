@@ -6,6 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+###########
+# ApiCall 1
+###########
+
 api_call = ApiCall.create(
   name: "Show the individual memories in the specified goals"
 )
@@ -75,9 +79,9 @@ parameter3 = Parameter.create(
   resource: resource
 )
 
-#####
+###########
 # ApiCall 2
-#####
+###########
 
 api_call = ApiCall.create(
   name: "Show the individual memories for the specified items/sentences"
