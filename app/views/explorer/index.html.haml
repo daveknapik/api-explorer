@@ -18,24 +18,29 @@
               %li= parameter.name
 
 = form_tag do
-  = select_tag "api_call_id", options_from_collection_for_select(@api_calls, :id, :name)
 
-  = select_tag "resource_id", options_from_collection_for_select(@api_calls.first.resources, :id, :path_with_http_method)
+  %fieldset
+    %legend API Calls
+    = select_tag "api_call_id", options_from_collection_for_select(@api_calls, :id, :name)
 
-  %div Required Parameters
-  %div.parameters.required
-    - @api_calls.first.resources.first.parameters.select {|p| p.required }.each do | parameter |
-      = label_tag "parameters_#{parameter.name}", parameter.name
-      = text_field_tag "parameters[#{parameter.name}]"
-    
+    = select_tag "resource_id", options_from_collection_for_select(@api_calls.first.resources, :id, :path_with_http_method)
 
-  %div Optional Parameters
-  %div.parameters.optional
-    - @api_calls.first.resources.first.parameters.select {|p| !p.required }.each do | parameter |
-      = label_tag "parameters_#{parameter.name}", parameter.name
-      = text_field_tag "parameters[#{parameter.name}]"
+  %fieldset 
+    %legend Required Parameters
+    %div.parameters.required
+      - @api_calls.first.resources.first.parameters.select {|p| p.required }.each do | parameter |
+        = label_tag "parameters_#{parameter.name}", parameter.name
+        = text_field_tag "parameters[#{parameter.name}]"
 
-  %div.authentication
+  %fieldset
+    %legend Optional Parameters
+    %div.parameters.optional
+      - @api_calls.first.resources.first.parameters.select {|p| !p.required }.each do | parameter |
+        = label_tag "parameters_#{parameter.name}", parameter.name
+        = text_field_tag "parameters[#{parameter.name}]"
+
+  %fieldset.authentication
+    %legend Authentication
     %div
       = label_tag :username
       = text_field_tag :username
@@ -43,7 +48,8 @@
       = label_tag :password
       = text_field_tag :password
 
-  = submit_tag
+  = submit_tag "Get API response"
 
 %div.response-container
+  %div API response
   %pre.response
