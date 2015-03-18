@@ -17,14 +17,14 @@ class Resource < ActiveRecord::Base
     path_with_parameter_values = self.path
 
     self.url_parameters.each do |parameter|
-      path_with_parameter_values.gsub!(":#{parameter.name}", api_parameters[parameter.name])
+      path_with_parameter_values.gsub!(":#{parameter.name}", api_parameters[parameter.name].to_s)
       api_parameters.delete parameter.name
     end
 
     api_response = self.class.send(
                     self.http_method.downcase,
                     path_with_parameter_values, 
-                    body: api_parameters.reject {|k,v| !v.empty?}.to_json,
+                    body: api_parameters.reject {|k,v| (v.is_a?(String) && v.empty?) || v.nil?}.to_json,
                     basic_auth: basic_auth)
     
     api_response.body

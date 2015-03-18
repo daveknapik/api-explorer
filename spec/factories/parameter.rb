@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :parameter do
-    name  Faker::Lorem.word
-    description Faker::Lorem.sentence
+    name  { Faker::Lorem.word }
+    description { Faker::Lorem.sentence }
     parameter_type "string"
     url_parameter false
     required false
