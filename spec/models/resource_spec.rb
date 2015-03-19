@@ -27,7 +27,7 @@ describe Resource do
 
       api_response = double(:api_response, body: "foobar")
       allow(Resource).to receive(:get) { api_response }
-      expect(Resource).to receive(:get).with("/v2/abc/mno/ghi/123", {body: body.to_json, basic_auth: basic_auth})
+      expect(Resource).to receive(:get).with("/v2/abc/mno/ghi/123", {body: body, basic_auth: basic_auth})
       resource.get_api_response_body(api_parameters, basic_auth)
     end
   end

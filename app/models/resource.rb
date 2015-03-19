@@ -24,7 +24,7 @@ class Resource < ActiveRecord::Base
     api_response = self.class.send(
                     self.http_method.downcase,
                     path_with_parameter_values, 
-                    body: api_parameters.reject {|k,v| (v.is_a?(String) && v.empty?) || v.nil?}.to_json,
+                    body: api_parameters.reject {|k,v| (v.is_a?(String) && v.empty?) || v.nil?},
                     basic_auth: basic_auth)
     
     api_response.body

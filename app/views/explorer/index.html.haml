@@ -29,15 +29,31 @@
     %legend Required Parameters
     %div.parameters.required
       - @api_calls.first.resources.first.parameters.select {|p| p.required }.each do | parameter |
-        = label_tag "parameters_#{parameter.name}", parameter.name
-        = text_field_tag "parameters[#{parameter.name}]"
+        - if parameter.parameter_type == "boolean"
+          %span= parameter.name
+          = radio_button_tag "parameters[#{parameter.name}]", "true", false, id: "parameters_#{parameter.name}_true"
+          = label_tag "parameters_#{parameter.name}_true", "true"
+          = radio_button_tag "parameters[#{parameter.name}]", "false", false, id: "parameters_#{parameter.name}_false"
+          = label_tag "parameters_#{parameter.name}_false", "false"
+        - else
+          = label_tag "parameters_#{parameter.name}", parameter.name
+          = text_field_tag "parameters[#{parameter.name}]"
+        %br
 
   %fieldset
     %legend Optional Parameters
     %div.parameters.optional
       - @api_calls.first.resources.first.parameters.select {|p| !p.required }.each do | parameter |
-        = label_tag "parameters_#{parameter.name}", parameter.name
-        = text_field_tag "parameters[#{parameter.name}]"
+        - if parameter.parameter_type == "boolean"
+          %span= parameter.name
+          = radio_button_tag "parameters[#{parameter.name}]", "true", false, id: "parameters_#{parameter.name}_true"
+          = label_tag "parameters_#{parameter.name}_true", "true"
+          = radio_button_tag "parameters[#{parameter.name}]", "false", false, id: "parameters_#{parameter.name}_false"
+          = label_tag "parameters_#{parameter.name}_false", "false"
+        - else
+          = label_tag "parameters_#{parameter.name}", parameter.name
+          = text_field_tag "parameters[#{parameter.name}]"
+        %br
 
   %fieldset.authentication
     %legend Authentication
