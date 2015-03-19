@@ -5,7 +5,7 @@ feature "API Explorer", js: true do
     Rails.application.load_seed
   end
 
-  scenario "making an API call" do
+  scenario "making an API call", vcr: true do
     visit root_path
     expect(page).to have_select "api_call_id", options: ["Show the individual memories in the specified goals", "Show the individual memories for the specified items/sentences"]
     expect(page).to have_select "resource_id", options: ["GET /v2/goals/:goal_id/memories.json", "GET /v2/memories.json"]
