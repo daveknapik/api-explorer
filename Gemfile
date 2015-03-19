@@ -43,7 +43,6 @@ group :development, :test do
   gem 'spring'
 
   gem 'rspec-rails', '~> 3.0'
-  gem 'guard-rspec', require: false
   gem 'pry'
   gem 'pry-rescue'
   gem 'pry-byebug'
@@ -52,11 +51,7 @@ end
 group :test do
   gem 'capybara'
   gem 'poltergeist'
-  gem 'selenium-webdriver'
   gem 'factory_girl_rails'
-  gem 'webmock'
-  gem 'vcr'
   gem 'database_cleaner'
-  gem 'simplecov', :require => false
   gem 'faker'
 end
