@@ -1,24 +1,7 @@
 :javascript
   window.api_calls = #{@api_calls.to_json(include: {resources: {include: [:parameters, :examples]}})};
 
-- @api_calls.each do |api_call|
-  %ul
-    %li= api_call.name
-    %ul
-      - api_call.resources.each do |resource|
-        %li= resource.path
-        %div 
-          Required Parameters
-          %ul
-            - resource.parameters.select {|p| p.required == true}.each do |parameter|
-              %li= parameter.name
-          Optional Parameters
-          %ul
-            - resource.parameters.select {|p| p.required == false}.each do |parameter|
-              %li= parameter.name
-
 = form_tag do
-
   %fieldset
     %legend API Calls
     = select_tag "api_call_id", options_from_collection_for_select(@api_calls, :id, :name)
