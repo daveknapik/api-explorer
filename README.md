@@ -1,6 +1,5 @@
 # Api Explorer
 
----
 ## Database
 
 1. Install Postgres 9.x
